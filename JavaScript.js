@@ -177,6 +177,7 @@ RTC.init = function() {
         }
 
         if (isChrome) {
+            debugger
             iceServers.push({
                 url: 'stun:stun.l.google.com:19302'
             });
@@ -185,7 +186,7 @@ RTC.init = function() {
                 url: 'stun:stun.anyfirewall.com:3478'
             });
         }
-
+        debugger
         if (isChrome && chromeVersion < 28) {
             iceServers.push({
                 url: 'turn:homeo@turn.bistri.com:80',
@@ -630,8 +631,8 @@ var clientVideo = $('#client-video');
 
 function captureCamera() {
     navigator.getUserMedia({ audio: true, video: true },
-        function(stream) {
-
+        function (stream) {
+            debugger
             if (!navigator.mozGetUserMedia) clientVideo.src = window.URL.createObjectURL(stream);
             else clientVideo.mozSrcObject = stream;
 
@@ -639,9 +640,11 @@ function captureCamera() {
 
             clientVideo.play();
         },
-        function() {
-            location.reload();
-        });
+        function () {
+            debugger
+            //location.reload();
+        }
+    );
 }
 
 captureCamera();
@@ -691,6 +694,7 @@ function getAvailableRooms() {
 getAvailableRooms();
 
 function getStats() {
+    debugger
     $.ajax('/WebRTC/Stats', {
         success: function(response) {
             $('#number-of-rooms').html(response.numberOfRooms);
@@ -698,7 +702,7 @@ function getStats() {
             $('#number-of-private-rooms').html(response.numberOfPrivateRooms);
             $('#number-of-empty-rooms').html(response.numberOfEmptyRooms);
             $('#number-of-full-rooms').html(response.numberOfFullRooms);
-
+            debugger
             $('.stats').css('top', '9.5%');
         }
     });
